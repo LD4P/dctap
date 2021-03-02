@@ -1,0 +1,85 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/setup'
+$LOAD_PATH.unshift 'lib'
+
+require 'profiles'
+require 'optparse'
+
+def indent(spaces)
+  ''.ljust(spaces)
+end
+
+def write_shape_report(shape_report, spaces)
+  puts "#{indent(spaces)}Shape #{shape_report.id}"
+  shape_report.errors.each { |error| puts "#{indent(spaces + 2)}Error: #{error}" }
+
+  property_reports = shape_report.property_reports.reject(&:valid?)
+  return if property_reports.empty?
+
+  property_reports.each { |property_report| write_property_report(property_report, spaces + 2) }
+end
+
+def write_property_report(property_report, spaces)
+  puts "#{indent(spaces)}Property #{property_report.id}"
+  property_report.errors.each { |error| puts "#{indent(spaces + 2)}Error: #{error}" }
+
+  value_reports = property_report.value_reports.reject(&:valid?)
+  return if value_reports.empty?
+
+  value_reports.each { |value_report| write_value_report(value_report, spaces + 2) }
+end
+
+def write_value_report(value_report, spaces)
+  puts "#{indent(spaces)}Value #{value_report.value}"
+  value_report.errors.each { |error| puts "#{indent(spaces + 2)}Error: #{error}" }
+
+  return if value_report.shape_report.nil? || value_report.shape_report.valid?
+
+  write_shape_report(value_report.shape_report, spaces + 2)
+end
+
+options = { strict: false }
+parser = OptionParser.new do |option_parser|
+  option_parser.banner = 'Usage: exe/validate [options] <resource url> || <resource filepath> <resource URI>'
+
+  option_parser.on('-sSHAPE_ID', '--shape_id SHAPE_ID', 'Shape ID for validation.')
+  option_parser.on('-s', '--strict', 'Strict. Unexpected properties are errors.')
+  option_parser.on('-h', '--help', 'Displays help.') do
+    puts option_parser
+    exit
+  end
+end
+parser.parse!(into: options)
+
+case ARGV.length
+when 1
+  graph = Profiles::GraphLoader.from_uri(ARGV[0])
+  subject = ARGV[0]
+when 2
+  graph = Profiles::GraphLoader.from_ttl(File.read(ARGV[0]))
+  subject = ARGV[1]
+else
+  puts option_parser
+  exit
+end
+
+shape_id = options[:shape_id]
+if shape_id.nil?
+  graph_query = Profiles::GraphQuery.new(graph)
+  shape_id = graph_query.query_first_object_value(RDF::URI.new(subject), Profiles::Sinopia::SINOPIA.hasResourceTemplate)
+  if shape_id.nil?
+    puts 'Shape ID must be provided with --shape_id'
+    exit
+  end
+end
+
+shapes = Profiles::Dctap::Reader.read_all('shapes')
+shape_report = Profiles::Dctap::Validator.validate(RDF::URI.new(subject), shape_id, graph, shapes,
+                                                   strict: options[:strict])
+if shape_report.valid?
+  puts 'Valid'
+else
+  write_shape_report(shape_report, 0)
+end

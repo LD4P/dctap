@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/setup'
+$LOAD_PATH.unshift 'lib'
+
+require 'profiles'
+require 'optparse'
+
+options = { base_url: 'https://api.sinopia.io', recursive: false }
+parser = OptionParser.new do |option_parser|
+  option_parser.banner = 'Usage: exe/sinopia2dctap [options] <profile_id ...>'
+
+  option_parser.on('-uBASE_URL', '--base_url BASE_URL', "Base URL. Default is #{options[:base_url]}.")
+  option_parser.on('-r', '--recursive', 'Recursive.')
+  option_parser.on('-h', '--help', 'Displays help.') do
+    puts option_parser
+    exit
+  end
+end
+parser.parse!(into: options)
+
+shapes = if options[:recursive]
+           ARGV.map do |profile_id|
+             Profiles::Sinopia::Mapper.recursive_build(options[:base_url], profile_id)
+           end.flatten.uniq(&:id)
+         else
+           ARGV.map { |profile_id| Profiles::Sinopia::Mapper.build(options[:base_url], profile_id) }
+         end
+
+FileUtils.mkdir('shapes') unless Dir.exist?('shapes')
+Profiles::Dctap::Writer.write('shapes/all_shapes.csv', shapes) if shapes.size > 1
+shapes.each { |shape| Profiles::Dctap::Writer.write("shapes/#{shape.id}.csv", shape) }

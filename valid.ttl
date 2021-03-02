@@ -1,0 +1,18 @@
+<https://api.development.sinopia.io/resource/b1e6898e-e0b5-4523-b50a-fbfab3ecaa23> <http://sinopia.io/vocabulary/hasResourceTemplate> "sinopia:test:Monograph:Instance";
+    a <http://id.loc.gov/ontologies/bibframe/Instance>;
+    <http://id.loc.gov/ontologies/bibframe/title> "Non-Technical Canyon Hiking Guide to the Colorado Plateau"@eng;
+    <http://id.loc.gov/ontologies/bibframe/copyrightDate> "2011"@eng;
+    <http://id.loc.gov/ontologies/bibframe/identifiedBy> _:b18.
+_:b18 a <http://id.loc.gov/ontologies/bibframe/Lccn>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "2010919352"@eng.
+<https://api.development.sinopia.io/resource/b1e6898e-e0b5-4523-b50a-fbfab3ecaa23> <http://id.loc.gov/ontologies/bibframe/identifiedBy> _:b19.
+_:b19 a <http://id.loc.gov/ontologies/bibframe/Isbn>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "978-0-944510-27-8"@eng.
+<https://api.development.sinopia.io/resource/b1e6898e-e0b5-4523-b50a-fbfab3ecaa23> <http://id.loc.gov/ontologies/bibframe/identifiedBy> _:b20.
+_:b20 a <http://id.loc.gov/ontologies/bibframe/Isbn>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "0-944510-27-2"@eng.
+<https://api.development.sinopia.io/resource/b1e6898e-e0b5-4523-b50a-fbfab3ecaa23> <http://id.loc.gov/ontologies/bibframe/note> _:b21.
+_:b21 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b22;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "The seminal work on semi-technical canyoneering in the Colorado plateau."@eng.
+_:b22 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "See also Technical Guide."@eng.

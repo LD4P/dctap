@@ -1,0 +1,16 @@
+<https://api.development.sinopia.io/resource/b1e6898e-e0b5-4523-b50a-fbfab3ecaa23> <http://sinopia.io/vocabulary/hasResourceTemplate> "sinopia:test:Monograph:Instance";
+    a <http://id.loc.gov/ontologies/bibframe/Instance>;
+    <http://id.loc.gov/ontologies/bibframe/title> "Non-Technical Canyon Hiking Guide to the Colorado Plateau"@eng;
+    <http://id.loc.gov/ontologies/bibframe/title> "Non-Technical Canyon Guide -- Colorado Plateau"@eng;
+    <http://id.loc.gov/ontologies/bibframe/copyrightDate> "2011"@eng;
+    <http://id.loc.gov/ontologies/bibframe/contributor> "Kelsey, Michael R."@eng;
+    <http://id.loc.gov/ontologies/bibframe/identifiedBy> _:b18.
+_:b18 a <http://id.loc.gov/ontologies/bibframe/Lccn>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> <http://id.loc.gov/vocabular/issn/2010919352>.
+<https://api.development.sinopia.io/resource/b1e6898e-e0b5-4523-b50a-fbfab3ecaa23> <http://id.loc.gov/ontologies/bibframe/identifiedBy> _:b19.
+_:b19 a <http://id.loc.gov/ontologies/bibframe/Isbn>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "978-0-944510-27-8"@eng.
+<https://api.development.sinopia.io/resource/b1e6898e-e0b5-4523-b50a-fbfab3ecaa23> <http://id.loc.gov/ontologies/bibframe/identifiedBy> _:b20.
+_:b20 a <http://id.loc.gov/ontologies/bibframe/Isbn>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> "0-944510-27-2"@eng.
+<https://api.development.sinopia.io/resource/b1e6898e-e0b5-4523-b50a-fbfab3ecaa23> <http://id.loc.gov/ontologies/bibframe/note> "The seminal work on semi-technical canyoneering in the Colorado plateau."@eng.
